@@ -1,0 +1,74 @@
+:root {
+  --bg-color: #1e1e2f;
+  --editor-bg: #282a36;
+  --console-bg: #21222c;
+  --editor-border: #6272a4;
+  --font-color: #f8f8f2;
+  --button-bg: #6272a4;
+  --button-hover: #50fa7b;
+  --font-family: 'Fira Code', monospace;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--font-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 1200px;
+  width: 100%;
+  background-color: var(--editor-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.editor, .console {
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px; /* margen interno igual que la consola */
+}
+
+.editor {
+  border: 2px solid var(--editor-border); /* resalte visible */
+}
+
+.console {
+  background-color: var(--console-bg);
+  font-family: var(--font-family);
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+button {
+  background-color: var(--button-bg);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  color: var(--font-color);
+  cursor: pointer;
+  transition: background 0.3s;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+  color: #000;
+}

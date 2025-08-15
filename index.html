@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Playground</title>
+
+  <!-- CodeMirror CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Javascript Playground</h2>
+
+    <div class="editor" id="editor"></div>
+
+    <div class="buttons">
+      <button id="runBtn">Ejecutar</button>
+      <button id="clearBtn">Limpiar</button>
+    </div>
+
+    <h3>Consola</h3>
+    <div class="console" id="consoleOutput"></div>
+  </div>
+
+  <!-- CodeMirror JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+
+  <script>
+    // Inicializar CodeMirror
+    const editor = CodeMirror(document.getElementById('editor'), {
+      mode: "javascript",
+      theme: "dracula",
+      lineNumbers: true,
+      tabSize: 2,
+      indentUnit: 2,
+      value: "// Escribe tu código aquí\nconsole.log('Hola Mundo');",
+      gutters: ["CodeMirror-linenumbers", "CodeMirror-lint-markers"],
+      lint: true
+    });
+
+    const consoleOutput = document.getElementById('consoleOutput');
+
+    function captureConsole() {
+      const originalLog = console.log;
+      console.log = function(...args) {
+        args.forEach(arg => {
+          consoleOutput.textContent += arg + "\n";
+        });
+        originalLog.apply(console, args);
+      };
+    }
+
+    captureConsole();
+
+    document.getElementById('runBtn').addEventListener('click', () => {
+      consoleOutput.textContent = ""; // Limpiar consola
+      try {
+        eval(editor.getValue());
+      } catch (err) {
+        consoleOutput.textContent += "Error: " + err.message + "\n" + err.stack;
+      }
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      editor.setValue("");
+      consoleOutput.textContent = "";
+    });
+  </script>
+
+</body>
+</html>
