@@ -32,23 +32,8 @@ body {
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-.editor, .console {
-  height: 300px;
-  border-radius: 8px;
-  overflow: hidden;
-  padding: 10px; /* margen interno igual que la consola */
-}
-
 .editor {
   border: 2px solid var(--editor-border); /* resalte visible */
-}
-
-.console {
-  background-color: var(--console-bg);
-  font-family: var(--font-family);
-  font-size: 14px;
-  white-space: pre-wrap;
-  overflow-y: auto;
 }
 
 .buttons {
@@ -71,4 +56,50 @@ button {
 button:hover {
   background-color: var(--button-hover);
   color: #000;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 1200px;
+  width: 100%;
+  background-color: var(--editor-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  padding-bottom: 60px; /* espacio para footer */
+}
+
+.editor, .console {
+  height: 200px; /* reducido para que se vea todo junto */
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px;
+
+}
+
+.footer {
+  position: fixed;      
+  bottom: 0;             
+  left: 0;
+  width: 100%;
+  background-color: var(--editor-bg); 
+  text-align: center;
+  color: var(--font-color);
+  font-size: 14px;
+  padding: 10px 0;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.console {
+  background-color: var(--console-bg);
+  font-family: var(--font-family);
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  border: 2px solid var(--editor-border); /* borde visible */
+  border-radius: 8px;
+  padding: 10px; /* mantener padding igual que editor */
 }
