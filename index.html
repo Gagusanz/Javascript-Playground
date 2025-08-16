@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JS Playground</title>
+  <title>JavaScript Playground</title>
 
   <!-- CodeMirror CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.css">
 
   <!-- CSS externo -->
   <link rel="stylesheet" href="style.css">
@@ -28,9 +29,14 @@
     <div class="console" id="consoleOutput"></div>
   </div>
 
+  <footer class="footer">
+    <p>JavaScript Playground &copy; 2025 | Practica y aprende JavaScript por Gustavo Aguilar</p>
+  </footer>
+
   <!-- CodeMirror JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
 
   <script>
     // Inicializar CodeMirror
@@ -40,18 +46,20 @@
       lineNumbers: true,
       tabSize: 2,
       indentUnit: 2,
-      value: "// Escribe tu código aquí\nconsole.log('Hola Mundo');",
+      value: "// Escribe tu código aquí\nconsole.log(\"Hola Mundo\");",
       gutters: ["CodeMirror-linenumbers", "CodeMirror-lint-markers"],
-      lint: true
+      lint: true,
+      styleActiveLine: true
     });
 
     const consoleOutput = document.getElementById('consoleOutput');
 
+    // Redirigir console.log a la consola del playground
     function captureConsole() {
       const originalLog = console.log;
       console.log = function(...args) {
         args.forEach(arg => {
-          consoleOutput.textContent += arg + "\n";
+          consoleOutput.innerHTML += arg + "<br>";
         });
         originalLog.apply(console, args);
       };
@@ -59,23 +67,28 @@
 
     captureConsole();
 
-    document.getElementById('runBtn').addEventListener('click', () => {
-      consoleOutput.textContent = ""; // Limpiar consola
+    // Ejecutar código
+    function runCode() {
+      consoleOutput.innerHTML = "";
       try {
-        eval(editor.getValue());
+        const result = eval(editor.getValue());
+        if (result !== undefined) {
+          consoleOutput.innerHTML += result + "<br>";
+        }
       } catch (err) {
-        consoleOutput.textContent += "Error: " + err.message + "\n" + err.stack;
+        consoleOutput.innerHTML += `<span class="error">Error: ${err.message}</span><br>`;
       }
-    });
+    }
 
+    // Botón ejecutar
+    document.getElementById('runBtn').addEventListener('click', runCode);
+
+    // Botón limpiar
     document.getElementById('clearBtn').addEventListener('click', () => {
       editor.setValue("");
-      consoleOutput.textContent = "";
+      consoleOutput.innerHTML = "";
     });
   </script>
-</body>
-  <footer class="footer">
-    <p>JavaScript Playground &copy; 2025 | Practica y aprende JavaScript por Gustavo Aguilar</p>
-  </footer>
 
+</body>
 </html>

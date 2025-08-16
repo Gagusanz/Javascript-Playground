@@ -5,8 +5,10 @@
   --editor-border: #6272a4;
   --font-color: #f8f8f2;
   --button-bg: #6272a4;
-  --button-hover: #50fa7b;
+  --button-hover: #44c564;
   --font-family: 'Fira Code', monospace;
+  --error-color: #ff6b6b;
+
 }
 
 body {
@@ -30,16 +32,43 @@ body {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  padding-bottom: 60px;
+}
+
+.editor, .console {
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px;
 }
 
 .editor {
-  border: 2px solid var(--editor-border); /* resalte visible */
+  height: 200px;
+  border: 2px solid var(--editor-border);
+}
+
+.console {
+  height: 200px;
+  background-color: var(--console-bg);
+  font-family: var(--font-family);
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  border: 2px solid var(--editor-border);
 }
 
 .buttons {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
+  align-items: center;
+}
+
+.buttons label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--font-color);
+  font-size: 14px;
 }
 
 button {
@@ -49,8 +78,9 @@ button {
   border-radius: 6px;
   color: var(--font-color);
   cursor: pointer;
-  transition: background 0.3s;
   font-weight: bold;
+  font-family: var(--font-family);
+  font-size: 14px;
 }
 
 button:hover {
@@ -58,33 +88,12 @@ button:hover {
   color: #000;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 1200px;
-  width: 100%;
-  background-color: var(--editor-bg);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  padding-bottom: 60px; /* espacio para footer */
-}
-
-.editor, .console {
-  height: 200px; /* reducido para que se vea todo junto */
-  border-radius: 8px;
-  overflow: hidden;
-  padding: 10px;
-
-}
-
 .footer {
-  position: fixed;      
-  bottom: 0;             
+  position: fixed;
+  bottom: 0;
   left: 0;
   width: 100%;
-  background-color: var(--editor-bg); 
+  background-color: var(--editor-bg);
   text-align: center;
   color: var(--font-color);
   font-size: 14px;
@@ -93,13 +102,11 @@ button:hover {
   z-index: 1000;
 }
 
-.console {
-  background-color: var(--console-bg);
-  font-family: var(--font-family);
-  font-size: 14px;
-  white-space: pre-wrap;
-  overflow-y: auto;
-  border: 2px solid var(--editor-border); /* borde visible */
-  border-radius: 8px;
-  padding: 10px; /* mantener padding igual que editor */
+.console .error {
+  color: var(--error-color);
+  font-weight: bold;
+}
+
+.CodeMirror-activeline-background {
+  background-color: rgba(122, 122, 122, 0.137);
 }
