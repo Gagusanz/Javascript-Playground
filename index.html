@@ -46,10 +46,10 @@
       lineNumbers: true,
       tabSize: 2,
       indentUnit: 2,
-      value: "// Escribe tu código aquí\nconsole.log(\"Hola Mundo\");",
+      value: "// Escribe tu código aquí\nconsole.log('Hola Mundo');",
       gutters: ["CodeMirror-linenumbers", "CodeMirror-lint-markers"],
       lint: true,
-      styleActiveLine: true
+      styleActiveLine: true // Activar resaltado de línea activa
     });
 
     const consoleOutput = document.getElementById('consoleOutput');
@@ -87,6 +87,11 @@
     document.getElementById('clearBtn').addEventListener('click', () => {
       editor.setValue("");
       consoleOutput.innerHTML = "";
+    });
+
+    // Mantener visible la línea activa en móviles
+    editor.on("cursorActivity", () => {
+      editor.scrollIntoView(null, 50); 
     });
   </script>
 
